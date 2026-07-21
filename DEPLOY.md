@@ -24,7 +24,11 @@ In `netlify.toml`, set the redirect target to your Render API URL:
 2. Netlify auto-detects Angular. Confirm the settings match `netlify.toml`:
    - **Build command:** `npm run build`
    - **Publish directory:** `dist/mlm/browser`
-   - The `@netlify/angular-runtime` plugin (declared in `netlify.toml`) enables SSR.
+   - **Node version:** 24 (set via `netlify.toml` — `@netlify/angular-runtime` v4 needs Node ≥ 22.22/24.13).
+   - SSR is enabled by the `@netlify/angular-runtime` **devDependency** (v4, in
+     `package.json`); it's applied automatically, so there is intentionally no
+     `[[plugins]]` entry (that would load Netlify's older managed version and fail the
+     Angular 21 SSR version check).
 3. Deploy.
 
 No auth-related environment variables are needed on Netlify — the API base URL stays

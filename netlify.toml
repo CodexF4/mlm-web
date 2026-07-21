@@ -2,12 +2,14 @@
 
 [build]
   command = "npm run build"
-  # Static browser assets; the Angular runtime plugin wires up the SSR function.
+  # Static browser assets; @netlify/angular-runtime (a devDependency) wires up the SSR
+  # function automatically — no [[plugins]] entry, which would load Netlify's older
+  # managed version and fail the Angular 21 SSR version check.
   publish = "dist/mlm/browser"
 
-# Angular SSR support (creates the server function from dist/mlm/server).
-[[plugins]]
-  package = "@netlify/angular-runtime"
+[build.environment]
+  # @netlify/angular-runtime v4 requires Node >= 22.22 / 24.13.
+  NODE_VERSION = "24"
 
 # Same-origin API proxy: the browser only ever talks to the Netlify origin, so the
 # httpOnly auth cookie stays first-party. Replace the target with your Render API URL.
