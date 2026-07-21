@@ -1,17 +1,28 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterOutlet, RouterLink } from '@angular/router';
+
+import { UserService } from './users/user.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
+  private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
+
   protected readonly title = signal('mlm');
+  protected readonly currentUser = this.userService.currentUser;
 
   isDark = false;
- 
+
+  protected logout() {
+    this.userService.logout();
+    this.router.navigateByUrl('/');
+  }
+
   ngOnInit() {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
       return;

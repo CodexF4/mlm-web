@@ -5,12 +5,6 @@
   @apply font-roboto text-white hover:text-gray-200 mx-2 my-1;
 }
 
-.line-y {
-  @apply relative overflow-clip;
-  @apply before:-left-full before:absolute before:top-0 before:bg-line-light before:dark:bg-line-dark before:w-[200%] before:h-px before:content-['*'];
-  @apply after:-left-full after:absolute after:bottom-0 after:bg-line-light after:dark:bg-line-dark after:w-[200%] after:h-px after:content-['*'];
-}
-
 .cart {
   @apply relative;
   @apply after:content-['1'] after:text-black after:h-fit after:w-fit after:absolute after:right-0 after:inline-block after:text-2xl;

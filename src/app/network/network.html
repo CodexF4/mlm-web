@@ -1,0 +1,37 @@
+<div class="xl:w-300 mx-auto px-4 py-8">
+  <h1 class="font-roboto text-2xl font-semibold text-primary dark:text-white mb-1">Your network</h1>
+  <p class="text-sm text-gray-500 dark:text-white mb-6">
+    {{ totalCount() }} member(s) across {{ maxDepth() }} level(s).
+  </p>
+
+  @if (tree(); as root) {
+    <!-- Recursive node template -->
+    <ng-template #nodeTpl let-node>
+      <div class="flex items-center gap-2 py-1">
+        @if (node.level === 0) {
+          <span class="text-xs rounded bg-primary text-white px-2 py-0.5">You</span>
+        } @else {
+          <span class="text-xs rounded bg-primary/10 text-primary dark:text-white px-2 py-0.5">L{{ node.level }}</span>
+        }
+        <span class="font-medium">{{ node.name }}</span>
+        @if (node.username) {
+          <span class="text-gray-400 dark:text-white">&#64;{{ node.username }}</span>
+        }
+      </div>
+
+      @if (node.children.length) {
+        <ul class="ml-4 border-l border-line-light pl-4">
+          @for (child of node.children; track child.id) {
+            <li>
+              <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: child }" />
+            </li>
+          }
+        </ul>
+      }
+    </ng-template>
+
+    <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: root }" />
+  } @else {
+    <p class="text-gray-500 dark:text-white">Loading your network…</p>
+  }
+</div>

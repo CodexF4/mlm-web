@@ -12,6 +12,13 @@
     --font-roboto: "Roboto", sans-serif; 
 }
 
+@layer base {
+    /* Any text defaults to white in dark mode for readability. */
+    body {
+        @apply text-gray-900 dark:text-white;
+    }
+}
+
 * {
     @apply outline-none;
 }
@@ -20,6 +27,21 @@
     @apply ring-2 ring-offset-2 ring-primary-100;
 }
 
-.test {
-    color: rgb(113, 180, 19);
+/* Shared form styles used by the register and login pages. */
+.field {
+    @apply flex flex-col gap-1 text-sm;
+}
+
+.field span {
+    @apply font-roboto text-gray-600 dark:text-white;
+}
+
+.field input,
+.field-input {
+    @apply rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 px-3 py-2;
+}
+
+.btn-primary {
+    @apply bg-primary hover:bg-primary-100 text-white font-roboto font-semibold rounded px-4 py-2;
+    @apply disabled:opacity-60 disabled:cursor-not-allowed;
 }

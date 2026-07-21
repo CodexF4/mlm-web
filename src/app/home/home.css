@@ -1,0 +1,8 @@
+@reference "../../styles.css";
+@reference "tailwindcss";
+
+.line-y {
+  @apply relative overflow-clip;
+  @apply before:-left-full before:absolute before:top-0 before:bg-line-light before:dark:bg-line-dark before:w-[200%] before:h-px before:content-['*'];
+  @apply after:-left-full after:absolute after:bottom-0 after:bg-line-light after:dark:bg-line-dark after:w-[200%] after:h-px after:content-['*'];
+}

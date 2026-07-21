@@ -1,0 +1,56 @@
+<div class="mx-auto max-w-md px-4 py-10">
+  <h1 class="font-roboto text-2xl font-semibold text-primary dark:text-white mb-1">Sign up</h1>
+  <p class="text-sm text-gray-500 dark:text-white mb-6">Create your Pag-Unlad account.</p>
+
+  @if (sponsorName(); as sponsor) {
+    <p class="rounded bg-primary/10 text-primary dark:text-white px-4 py-3 text-sm mb-4">
+      You were referred by <span class="font-semibold">{{ sponsor }}</span>.
+    </p>
+  }
+
+  @if (registered()) {
+    <p class="rounded bg-primary/10 text-primary dark:text-white px-4 py-3 text-sm">
+      Account created. You can now log in.
+    </p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-3">
+    <label class="field">
+      <span>First name</span>
+      <input type="text" formControlName="firstName" />
+    </label>
+
+    <label class="field">
+      <span>Last name</span>
+      <input type="text" formControlName="lastName" />
+    </label>
+
+    <label class="field">
+      <span>Email</span>
+      <input type="email" formControlName="email" />
+    </label>
+
+    <label class="field">
+      <span>Username</span>
+      <input type="text" formControlName="username" />
+    </label>
+
+    <label class="field">
+      <span>Password</span>
+      <input type="password" formControlName="password" autocomplete="new-password" />
+    </label>
+
+    <label class="field">
+      <span>Sponsor ID <span class="text-gray-400 dark:text-white">(optional)</span></span>
+      <input type="text" formControlName="sponsorId" placeholder="Leave blank for root member" />
+    </label>
+
+    @if (error()) {
+      <p class="text-sm text-red-600 dark:text-red-400">{{ error() }}</p>
+    }
+
+    <button type="submit" [disabled]="submitting()" class="btn-primary">
+      {{ submitting() ? 'Signing up…' : 'Sign up' }}
+    </button>
+  </form>
+</div>
