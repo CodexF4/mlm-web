@@ -1,3 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import 'tailwindcss';
+
+@theme {
+    --color-primary: rgb(100, 163, 14);
+    --color-primary-100: rgb(113, 180, 19);
+    --color-line-dark: color-mix(in oklab, var(--color-white) 10%, transparent);
+    --color-line-light: color-mix(in oklab, var(--color-gray-950) 5%, transparent);
+
+    --font-roboto: "Roboto", sans-serif; 
+}
+
+* {
+    @apply outline-none;
+}
+
+*:focus {
+    @apply ring-2 ring-offset-2 ring-primary-100;
+}
+
+.test {
+    color: rgb(113, 180, 19);
+}
