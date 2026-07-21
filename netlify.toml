@@ -19,3 +19,10 @@
   to = "https://mlm-api.onrender.com/:splat"
   status = 200
   force = true
+
+# Let Angular Router handle direct visits and browser refreshes for client routes.
+# Existing files are served first because this fallback is not forced.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
