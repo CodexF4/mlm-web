@@ -19,6 +19,10 @@ In `netlify.toml`, set the redirect target to your Render API URL:
   force = true
 ```
 
+Keep the final `/*` rewrite to `/index.html` after the API rule. It allows Angular
+Router to handle direct visits and browser refreshes for routes such as `/login`,
+`/cart`, and `/network` instead of Netlify returning its 404 page.
+
 ## 2. Create the Netlify site
 1. Netlify dashboard → **Add new site → Import an existing project** → connect this repo.
 2. Netlify auto-detects Angular. Confirm the settings match `netlify.toml`:
