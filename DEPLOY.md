@@ -34,12 +34,27 @@ In `netlify.toml`, set the redirect target to your Render API URL:
 No auth-related environment variables are needed on Netlify — the API base URL stays
 the relative `/api`, resolved by the proxy above.
 
+## Google sign-in
+Google sign-in is enabled on the login/signup pages via Google Identity Services.
+
+- The Web Client ID is a **build-time constant** in
+  `src/app/auth/google.config.ts` (`565975617810-…apps.googleusercontent.com`). It is
+  **public** (not a secret) and must match the API's `Authentication:Google:ClientId`.
+- In the [Google Cloud console](https://console.cloud.google.com/apis/credentials),
+  add your Netlify site URL (and any custom domain) to the OAuth client's
+  **Authorized JavaScript origins** — otherwise Google blocks the button with an
+  "origin mismatch" error. Include `http://localhost:4200` for local dev.
+- No redirect URIs needed (ID-token flow).
+
 ## 3. Verify
 1. Open the Netlify site URL.
 2. **Register** a member, then **Log in**. In DevTools → Network, the `/api/login`
    response should set an `access_token` cookie on the Netlify origin (`HttpOnly`,
    `SameSite=Lax`, `Secure`).
 3. Open **Referrals** and **Network** — they should load your data (guarded routes).
+4. Click **Sign in with Google** — it should create/log in the account and set the same
+   `access_token` cookie. (Requires the Netlify origin to be in the Google client's
+   Authorized JavaScript origins.)
 
 ## How it fits together
 ```

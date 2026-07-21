@@ -15,7 +15,6 @@ export interface RegisterRequest {
   email: string;
   username: string;
   password: string;
-  sponsorId: string | null;
   referralCode: string | null;
 }
 

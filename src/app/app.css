@@ -4,8 +4,3 @@
 .link {
   @apply font-roboto text-white hover:text-gray-200 mx-2 my-1;
 }
-
-.cart {
-  @apply relative;
-  @apply after:content-['1'] after:text-black after:h-fit after:w-fit after:absolute after:right-0 after:inline-block after:text-2xl;
-}

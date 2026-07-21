@@ -23,25 +23,34 @@
     @apply outline-none;
 }
 
-*:focus {
+/* *:focus {
     @apply ring-2 ring-offset-2 ring-primary-100;
-}
+} */
 
-/* Shared form styles used by the register and login pages. */
+/* Shared form styles used by the register and login pages.
+   Input styling mirrors Shopee's signup fields: thin light-grey border, ~2px radius,
+   ~40px height, muted placeholder, and a quiet neutral focus (border darkens + faint
+   shadow) instead of a coloured ring. */
 .field {
-    @apply flex flex-col gap-1 text-sm;
+    @apply flex flex-col gap-1.5 text-sm;
 }
 
 .field span {
-    @apply font-roboto text-gray-600 dark:text-white;
+    @apply font-roboto text-[13px] text-gray-600 dark:text-gray-300;
 }
 
 .field input,
 .field-input {
-    @apply rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 px-3 py-2;
+    @apply w-full rounded-[2px] border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900;
+    @apply placeholder:text-gray-400 transition-colors;
+    @apply hover:border-gray-400;
+    @apply focus:border-gray-500 focus:shadow-[0_1px_2px_rgba(0,0,0,0.08)];
+    @apply dark:border-gray-700 dark:bg-gray-900 dark:text-white;
+    @apply dark:hover:border-gray-600 dark:focus:border-gray-400;
 }
 
 .btn-primary {
-    @apply bg-primary hover:bg-primary-100 text-white font-roboto font-semibold rounded px-4 py-2;
-    @apply disabled:opacity-60 disabled:cursor-not-allowed;
+    @apply bg-primary hover:brightness-95 text-white font-roboto font-medium rounded-[2px] px-4 py-2.5;
+    @apply shadow-[0_1px_1px_rgba(0,0,0,0.09)] transition;
+    @apply disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:brightness-100;
 }

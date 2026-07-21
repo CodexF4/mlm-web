@@ -1,0 +1,23 @@
+<div class="xl:w-300 mx-auto px-4 py-6">
+  <h1 class="font-roboto text-lg font-semibold text-primary dark:text-white mb-1">
+    @if (query()) {
+      Search results for "{{ query() }}"
+    } @else {
+      All products
+    }
+  </h1>
+  <p class="text-sm text-gray-500 dark:text-white mb-4">{{ results().length }} product(s) found</p>
+
+  @if (results().length === 0) {
+    <div class="text-center py-20">
+      <i class="fa-solid fa-magnifying-glass text-5xl text-gray-300"></i>
+      <p class="mt-4 text-gray-500 dark:text-white">No products match "{{ query() }}".</p>
+    </div>
+  } @else {
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+      @for (product of results(); track product.id) {
+        <app-product-card [product]="product" />
+      }
+    </div>
+  }
+</div>

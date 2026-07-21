@@ -1,17 +1,20 @@
 ﻿<div class="dark:bg-gray-950">
-  <header class="bg-linear-to-b from-primary to-primary-100 h-30 w-full">
-    <div class="xl:w-300 mx-auto">
-      <nav class="flex justify-between mb-2">
-        <div class="flex items-center">
-          <a class="link text-[13px]" href="/">Earn from Referral</a>
+  @if (showChrome()) {
+  <header class="bg-linear-to-b from-primary to-primary-100 w-full md:h-30">
+    <div class="xl:w-300 mx-auto px-4">
+      <nav class="flex items-center justify-between py-1">
+        <!-- Desktop: promo links -->
+        <div class="hidden md:flex items-center">
+          <a class="link text-[13px]" routerLink="/earn">Earn from Referral</a>
           <div class="border-r h-3 border-gray-200"></div>
-          <a class="link text-[13px]" href="/">Join Our Community</a>
+          <a class="link text-[13px]" routerLink="/community">Join Our Community</a>
           <div class="border-r h-3 border-gray-200"></div>
           <div class="link text-[13px]"> Follow us on
             <a href="/"><i class="fa-brands fa-facebook text-white"></i></a>
           </div>
         </div>
-        <div class="flex items-center">
+        <!-- Desktop: account links -->
+        <div class="hidden md:flex items-center">
           @if (currentUser(); as user) {
             <a class="text-[13px] link font-semibold" routerLink="/referrals">Referrals</a>
             <div class="border-r h-3 border-gray-200"></div>
@@ -26,20 +29,98 @@
             <a class="text-[13px] link font-semibold" routerLink="/login">Login</a>
           }
         </div>
+        <!-- Mobile: hamburger -->
+        <button type="button" (click)="toggleMenu()" aria-label="Menu"
+                class="md:hidden ml-auto text-white text-xl px-2 py-1">
+          <i class="fa-solid" [class.fa-bars]="!menuOpen()" [class.fa-xmark]="menuOpen()"></i>
+        </button>
       </nav>
-      <div class="flex justify-between items-center">
-        <a routerLink="/" class="flex items-center px-2">
-          <img class="h-13.75 w-13.75" src="logo-white.svg" alt="Pag-Unlad Logo">
-          <div class="font-roboto text-white text-[30px]">Pag-Unlad</div>
+      <div class="flex items-center gap-3 md:gap-4 pb-2">
+        <a routerLink="/" class="flex items-center shrink-0">
+          <img class="h-9 w-9 md:h-13.75 md:w-13.75" src="logo-white.svg" alt="Pag-Unlad Logo">
+          <div class="font-roboto text-white text-xl md:text-[30px]">Pag-Unlad</div>
         </a>
-        <div class="px-2 ">
-          <i class="cart fa-solid fa-cart-shopping text-white text-4xl "></i>
-          <!-- <i class="fa-solid fa-bag-shopping text-white"></i> -->
+
+        <!-- Search -->
+        <div class="flex-1 min-w-0">
+          <div class="flex bg-white rounded-sm overflow-hidden p-0.5">
+            <input #q type="text" (keyup.enter)="search(q.value)"
+                   placeholder="Search for products..."
+                   class="flex-1 min-w-0 px-3 py-2 text-sm text-gray-800 bg-transparent outline-none" />
+            <button type="button" (click)="search(q.value)" aria-label="Search"
+                    class="bg-primary hover:brightness-95 text-white px-5 rounded-sm flex items-center">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+          <div class="hidden sm:flex gap-3 mt-1 text-[11px] text-white/90 overflow-hidden">
+            @for (kw of trending; track kw) {
+              <span (click)="search(kw)" class="cursor-pointer whitespace-nowrap hover:underline">{{ kw }}</span>
+            }
+          </div>
+        </div>
+        <div class="relative group px-2">
+          <a routerLink="/cart" class="relative inline-block" aria-label="Cart">
+            <i class="fa-solid fa-cart-shopping text-white text-4xl"></i>
+            @if (cartCount() > 0) {
+              <span class="absolute -top-1 right-0 bg-white text-primary text-xs font-bold rounded-full px-1.5 py-0.5 min-w-5 text-center">
+                {{ cartCount() }}
+              </span>
+            }
+          </a>
+
+          <!-- Hover dropdown: recently added products -->
+          <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150
+                      absolute right-0 top-full z-50 w-96 rounded-sm bg-white text-gray-800 shadow-xl">
+            @if (cartItems().length === 0) {
+              <div class="flex flex-col items-center justify-center gap-2 py-10 text-gray-400">
+                <i class="fa-solid fa-cart-shopping text-3xl"></i>
+                <span class="text-sm">No products yet</span>
+              </div>
+            } @else {
+              <p class="px-4 pt-3 pb-2 text-xs text-gray-400">Recently Added Products</p>
+              <ul class="max-h-80 overflow-auto">
+                @for (item of recentItems(); track item.product.id) {
+                  <li class="flex items-center gap-3 px-4 py-2 hover:bg-gray-50">
+                    <img [src]="item.product.image" [alt]="item.product.name" class="h-10 w-10 object-cover" />
+                    <span class="flex-1 truncate text-sm">{{ item.product.name }}</span>
+                    <span class="text-sm text-primary">{{ formatPeso(unitPrice(item.product)) }}</span>
+                  </li>
+                }
+              </ul>
+              <div class="flex items-center justify-between px-4 py-3">
+                <span class="text-xs text-gray-500">
+                  @if (moreCount() > 0) { {{ moreCount() }} More Products In Cart } @else { &nbsp; }
+                </span>
+                <a routerLink="/cart" class="btn-primary text-sm">View My Shopping Cart</a>
+              </div>
+            }
+          </div>
         </div>
       </div>
+
+      <!-- Mobile menu panel -->
+      @if (menuOpen()) {
+        <div class="md:hidden flex flex-col pb-3 border-t border-white/20 pt-2">
+          <a class="text-white text-sm font-roboto py-2" routerLink="/earn" (click)="closeMenu()">Earn from Referral</a>
+          <a class="text-white text-sm font-roboto py-2" routerLink="/community" (click)="closeMenu()">Join Our Community</a>
+          @if (currentUser(); as user) {
+            <a class="text-white text-sm font-roboto py-2" routerLink="/referrals" (click)="closeMenu()">Referrals</a>
+            <a class="text-white text-sm font-roboto py-2" routerLink="/network" (click)="closeMenu()">Network</a>
+            <span class="text-white text-sm font-roboto py-2">Hi, {{ user.firstName }}</span>
+            <button type="button" class="text-white text-sm font-roboto py-2 text-left" (click)="logout(); closeMenu()">Logout</button>
+          } @else {
+            <a class="text-white text-sm font-roboto py-2" routerLink="/register" (click)="closeMenu()">Sign Up</a>
+            <a class="text-white text-sm font-roboto py-2" routerLink="/login" (click)="closeMenu()">Login</a>
+          }
+        </div>
+      }
     </div>
   </header>
+  }
   <main>
     <router-outlet />
   </main>
+  @if (showChrome()) {
+    <app-footer />
+  }
 </div>

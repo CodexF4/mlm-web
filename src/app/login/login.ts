@@ -1,12 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
 
 import { UserService } from '../users/user.service';
+import { GoogleSignin } from '../auth/google-signin';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink, GoogleSignin],
   templateUrl: './login.html'
 })
 export class Login {
@@ -39,6 +41,15 @@ export class Login {
         this.error.set('Invalid username/email or password.');
         this.submitting.set(false);
       }
+    });
+  }
+
+  protected onGoogle(idToken: string) {
+    this.error.set(null);
+    this.userService.loginWithGoogle(idToken, null).subscribe({
+      next: () => this.router.navigateByUrl('/'),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(typeof err.error === 'string' ? err.error : 'Google sign-in failed.')
     });
   }
 }

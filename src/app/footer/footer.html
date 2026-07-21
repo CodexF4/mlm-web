@@ -1,0 +1,41 @@
+<footer class="border-t border-line-light bg-gray-50 dark:bg-gray-950 mt-8">
+  <div class="xl:w-300 mx-auto px-4 py-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+      <!-- Brand -->
+      <div class="col-span-2 md:col-span-4 lg:col-span-1">
+        <a routerLink="/" class="flex items-center gap-2 mb-3">
+          <img src="logo-colored.svg" alt="Pag-Unlad" class="h-8 w-8" />
+          <span class="font-roboto text-lg font-bold text-primary dark:text-white">Pag-Unlad</span>
+        </a>
+        <p class="text-xs text-gray-500 dark:text-white">Sell, Refer, Succeed Online.</p>
+        <div class="flex gap-4 mt-3 text-lg text-gray-500 dark:text-white">
+          <a href="#" aria-label="Facebook" class="hover:text-primary"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" aria-label="Instagram" class="hover:text-primary"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube" class="hover:text-primary"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Link columns -->
+      @for (col of columns; track col.title) {
+        <div>
+          <h3 class="font-roboto font-semibold text-sm text-gray-800 dark:text-white mb-3 uppercase tracking-wide">
+            {{ col.title }}
+          </h3>
+          <ul class="space-y-2">
+            @for (link of col.links; track link.label) {
+              <li>
+                <a [routerLink]="link.path" class="text-sm text-gray-500 dark:text-white hover:text-primary">
+                  {{ link.label }}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+
+    <div class="border-t border-line-light mt-8 pt-4 text-center text-xs text-gray-400 dark:text-white">
+      © 2026 Pag-Unlad. All rights reserved.
+    </div>
+  </div>
+</footer>

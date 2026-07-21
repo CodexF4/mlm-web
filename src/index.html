@@ -6,7 +6,10 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="logo-colored.svg">
-  <script src="https://kit.fontawesome.com/8e38f6bf4e.js" crossorigin="anonymous"></script>
+  <!-- FontAwesome CSS/webfont build. The JS "kit" was replaced because it rewrites
+       <i> elements into <svg> at load, which breaks Angular SSR hydration (blank page
+       on refresh). The CSS build styles <i> via ::before and never mutates the DOM. -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
   <app-root></app-root>

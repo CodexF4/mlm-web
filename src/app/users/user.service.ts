@@ -28,6 +28,12 @@ export class UserService {
       .pipe(tap((user) => this.currentUser.set(user)));
   }
 
+  loginWithGoogle(idToken: string, referralCode: string | null): Observable<User> {
+    return this.http
+      .post<User>(`${API_BASE}/auth/google`, { idToken, referralCode })
+      .pipe(tap((user) => this.currentUser.set(user)));
+  }
+
   logout(): void {
     this.currentUser.set(null);
     this.http.post(`${API_BASE}/logout`, {}).subscribe({ error: () => {} });

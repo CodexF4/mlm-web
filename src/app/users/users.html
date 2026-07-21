@@ -1,56 +1,94 @@
-<div class="mx-auto max-w-md px-4 py-10">
-  <h1 class="font-roboto text-2xl font-semibold text-primary dark:text-white mb-1">Sign up</h1>
-  <p class="text-sm text-gray-500 dark:text-white mb-6">Create your Pag-Unlad account.</p>
+<section class="bg-linear-to-b from-primary to-primary-100">
+  <div class="xl:w-300 mx-auto px-4 py-10 md:py-16 flex flex-col md:flex-row items-center md:justify-between gap-10">
+    <!-- Brand / promo (desktop) -->
+    <div class="hidden md:flex flex-col items-center text-white text-center max-w-sm">
+      <a routerLink="/" aria-label="Home"><img src="logo-white.svg" alt="Pag-Unlad" class="h-28 w-28 mb-4" /></a>
+      <h2 class="font-roboto text-4xl font-bold">Pag-Unlad</h2>
+      <p class="text-white/90 mt-2 text-lg">Sell, Refer, Succeed Online</p>
+      <ul class="mt-6 space-y-2 text-white/90 text-sm text-left">
+        <li><i class="fa-solid fa-check mr-2"></i>Earn from every referral</li>
+        <li><i class="fa-solid fa-check mr-2"></i>Shop at member prices</li>
+        <li><i class="fa-solid fa-check mr-2"></i>Grow your own network</li>
+      </ul>
+    </div>
 
-  @if (sponsorName(); as sponsor) {
-    <p class="rounded bg-primary/10 text-primary dark:text-white px-4 py-3 text-sm mb-4">
-      You were referred by <span class="font-semibold">{{ sponsor }}</span>.
-    </p>
-  }
+    <!-- Form card -->
+    <div class="w-full max-w-md bg-white dark:bg-gray-900 rounded shadow-xl p-6 md:p-8">
+      <h1 class="font-roboto text-xl font-medium text-gray-800 dark:text-white mb-1">Sign up</h1>
+      <p class="text-sm text-gray-500 dark:text-white mb-5">Create your Pag-Unlad account.</p>
 
-  @if (registered()) {
-    <p class="rounded bg-primary/10 text-primary dark:text-white px-4 py-3 text-sm">
-      Account created. You can now log in.
-    </p>
-  }
+      @if (sponsorName(); as sponsor) {
+        <p class="rounded bg-primary/10 text-primary dark:text-white px-4 py-3 text-sm mb-4">
+          You were referred by <span class="font-semibold">{{ sponsor }}</span>.
+        </p>
+      }
 
-  <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-3">
-    <label class="field">
-      <span>First name</span>
-      <input type="text" formControlName="firstName" />
-    </label>
+      @if (registered()) {
+        <p class="rounded bg-primary/10 text-primary dark:text-white px-4 py-3 text-sm mb-4">
+          Account created. You can now
+          <a routerLink="/login" class="font-semibold underline">log in</a>.
+        </p>
+      }
 
-    <label class="field">
-      <span>Last name</span>
-      <input type="text" formControlName="lastName" />
-    </label>
+      <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-3">
+        <div class="grid grid-cols-2 gap-3">
+          <label class="field">
+            <span>First name</span>
+            <input type="text" formControlName="firstName" />
+          </label>
+          <label class="field">
+            <span>Last name</span>
+            <input type="text" formControlName="lastName" />
+          </label>
+        </div>
 
-    <label class="field">
-      <span>Email</span>
-      <input type="email" formControlName="email" />
-    </label>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" formControlName="email" />
+        </label>
 
-    <label class="field">
-      <span>Username</span>
-      <input type="text" formControlName="username" />
-    </label>
+        <label class="field">
+          <span>Username</span>
+          <input type="text" formControlName="username" />
+        </label>
 
-    <label class="field">
-      <span>Password</span>
-      <input type="password" formControlName="password" autocomplete="new-password" />
-    </label>
+        <label class="field">
+          <span>Password</span>
+          <input type="password" formControlName="password" autocomplete="new-password" />
+        </label>
 
-    <label class="field">
-      <span>Sponsor ID <span class="text-gray-400 dark:text-white">(optional)</span></span>
-      <input type="text" formControlName="sponsorId" placeholder="Leave blank for root member" />
-    </label>
+        <label class="field">
+          <span>Referral code <span class="text-gray-400 dark:text-white">(optional)</span></span>
+          <input type="text" formControlName="referralCode" placeholder="Enter a friend's referral code" />
+        </label>
 
-    @if (error()) {
-      <p class="text-sm text-red-600 dark:text-red-400">{{ error() }}</p>
-    }
+        @if (error()) {
+          <p class="text-sm text-red-600 dark:text-red-400">{{ error() }}</p>
+        }
 
-    <button type="submit" [disabled]="submitting()" class="btn-primary">
-      {{ submitting() ? 'Signing up…' : 'Sign up' }}
-    </button>
-  </form>
-</div>
+        <button type="submit" [disabled]="submitting()" class="btn-primary w-full mt-1">
+          {{ submitting() ? 'Signing up…' : 'Sign up' }}
+        </button>
+      </form>
+
+      <div class="flex items-center gap-3 my-5 text-xs text-gray-400">
+        <span class="h-px bg-gray-200 dark:bg-gray-700 flex-1"></span>
+        OR
+        <span class="h-px bg-gray-200 dark:bg-gray-700 flex-1"></span>
+      </div>
+
+      <div class="flex flex-col items-center gap-3">
+        <app-google-signin (credential)="onGoogle($event)" />
+        <a routerLink="/auth/facebook"
+           class="w-full flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-700 rounded-[2px] py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">
+          <i class="fa-brands fa-facebook text-blue-600"></i> Continue with Facebook
+        </a>
+      </div>
+
+      <p class="text-center text-sm text-gray-500 dark:text-white mt-6">
+        Have an account?
+        <a routerLink="/login" class="text-primary font-semibold hover:underline">Log in</a>
+      </p>
+    </div>
+  </div>
+</section>
