@@ -1,0 +1,19 @@
+# Netlify configuration for the Angular 21 SSR app.
+
+[build]
+  command = "npm run build"
+  # Static browser assets; the Angular runtime plugin wires up the SSR function.
+  publish = "dist/mlm/browser"
+
+# Angular SSR support (creates the server function from dist/mlm/server).
+[[plugins]]
+  package = "@netlify/angular-runtime"
+
+# Same-origin API proxy: the browser only ever talks to the Netlify origin, so the
+# httpOnly auth cookie stays first-party. Replace the target with your Render API URL.
+# This runs before the SSR function, so /api/* never hits Angular.
+[[redirects]]
+  from = "/api/*"
+  to = "https://mlm-api.onrender.com/:splat"
+  status = 200
+  force = true
