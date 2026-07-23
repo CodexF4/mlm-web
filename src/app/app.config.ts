@@ -12,7 +12,11 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import {
+  provideClientHydration,
+  withEventReplay,
+  withNoIncrementalHydration,
+} from '@angular/platform-browser';
 import { UserService } from './users/user.service';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 
@@ -21,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
     provideHttpClient(withFetch()),
     // Restore the session from the httpOnly auth cookie before the app renders (browser only).
     provideAppInitializer(() => {

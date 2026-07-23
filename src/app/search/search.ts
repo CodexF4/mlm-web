@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ProductCard } from '../products/product-card';
@@ -8,7 +8,8 @@ import { Product } from '../products/product.model';
 @Component({
   selector: 'app-search',
   imports: [ProductCard],
-  templateUrl: './search.html'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  templateUrl: './search.html',
 })
 export class Search {
   private readonly route = inject(ActivatedRoute);
@@ -21,7 +22,9 @@ export class Search {
       const q = (params.get('q') ?? '').trim();
       this.query.set(q);
       const needle = q.toLowerCase();
-      this.results.set(q ? PRODUCTS.filter((p) => p.name.toLowerCase().includes(needle)) : PRODUCTS);
+      this.results.set(
+        q ? PRODUCTS.filter((p) => p.name.toLowerCase().includes(needle)) : PRODUCTS,
+      );
     });
   }
 }

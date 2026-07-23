@@ -1,4 +1,11 @@
-import { Component, ElementRef, afterNextRender, output, viewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  afterNextRender,
+  output,
+  viewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 import { GOOGLE_CLIENT_ID } from './google.config';
 
@@ -11,7 +18,8 @@ declare const google: any;
 @Component({
   selector: 'app-google-signin',
   imports: [],
-  template: '<div #btn class="flex justify-center"></div>'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  template: '<div #btn class="flex justify-center"></div>',
 })
 export class GoogleSignin {
   readonly credential = output<string>();
@@ -26,14 +34,14 @@ export class GoogleSignin {
 
     google.accounts.id.initialize({
       client_id: GOOGLE_CLIENT_ID,
-      callback: (response: { credential: string }) => this.credential.emit(response.credential)
+      callback: (response: { credential: string }) => this.credential.emit(response.credential),
     });
 
     google.accounts.id.renderButton(this.btn().nativeElement, {
       theme: 'outline',
       size: 'large',
       text: 'continue_with',
-      width: 320
+      width: 320,
     });
   }
 

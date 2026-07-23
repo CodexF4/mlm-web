@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet, RouterLink } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
@@ -7,13 +7,14 @@ import { UserService } from './users/user.service';
 import { CartService } from './cart/cart.service';
 import { unitPrice, formatPeso } from './products/product.model';
 import { Footer } from './footer/footer';
-import { IonContent } from "@ionic/angular/standalone";
+import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, Footer, IonContent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './app.css',
 })
 export class App {
   private readonly userService = inject(UserService);
@@ -30,12 +31,12 @@ export class App {
     this.router.events.pipe(
       filter((e): e is NavigationEnd => e instanceof NavigationEnd),
       map((e) => e.urlAfterRedirects.split('?')[0]),
-      startWith(this.router.url.split('?')[0])
+      startWith(this.router.url.split('?')[0]),
     ),
-    { initialValue: '/' }
+    { initialValue: '/' },
   );
   protected readonly showChrome = computed(
-    () => !['/login', '/register'].includes(this.currentUrl())
+    () => !['/login', '/register'].includes(this.currentUrl()),
   );
 
   // Mobile nav menu toggle.

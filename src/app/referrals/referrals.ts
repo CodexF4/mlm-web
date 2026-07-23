@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 
 import { ReferralService } from './referral.service';
 import { Downline, MyReferral, ReferralNode } from './referral.model';
@@ -6,7 +6,8 @@ import { Downline, MyReferral, ReferralNode } from './referral.model';
 @Component({
   selector: 'app-referrals',
   imports: [],
-  templateUrl: './referrals.html'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  templateUrl: './referrals.html',
 })
 export class Referrals {
   private readonly referralService = inject(ReferralService);
