@@ -20,9 +20,14 @@
   status = 200
   force = true
 
-# Let Angular Router handle direct visits and browser refreshes for client routes.
-# Existing files are served first because this fallback is not forced.
+# SPA fallback: the root and other client-rendered routes have no prerendered
+# index.html (SSR output names the client shell index.csr.html). `force` stays false
+# so prerendered static files (e.g. /community, /earn) are served directly and only
+# unmatched paths fall through to the client shell.
+# NOTE: this serves the client shell for everything not prerendered, so it bypasses the
+# SSR function. If you later add a RenderMode.Server route, exclude its path from this
+# rule (or route it to the SSR function) so it actually server-renders.
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/index.csr.html"
   status = 200
