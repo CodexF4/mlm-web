@@ -4,7 +4,7 @@ import {
   inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { provideRouter } from '@angular/router';
@@ -14,6 +14,7 @@ import { firstValueFrom } from 'rxjs';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { UserService } from './users/user.service';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,6 +29,7 @@ export const appConfig: ApplicationConfig = {
         return;
       }
       return firstValueFrom(inject(UserService).loadMe());
-    })
-  ]
+    }),
+    provideIonicAngular({}),
+  ],
 };
