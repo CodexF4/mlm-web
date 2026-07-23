@@ -5,7 +5,7 @@
   # Static browser assets; @netlify/angular-runtime (a devDependency) wires up the SSR
   # function automatically — no [[plugins]] entry, which would load Netlify's older
   # managed version and fail the Angular 21 SSR version check.
-  publish = "dist/mlm/browser"
+  publish = "dist/app/browser"
 
 [build.environment]
   # @netlify/angular-runtime v4 requires Node >= 22.22 / 24.13.
