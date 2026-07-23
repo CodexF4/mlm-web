@@ -1,13 +1,14 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.mlm.app',
+  appId: 'com.mlm.mobile',
   appName: 'mlm',
-  webDir: 'dist/app/browser',
+  webDir: 'dist/mobile/browser',
   plugins: {
     StatusBar: {
-      overlaysWebView: false,
-      backgroundColor: '#64A30E',
+      // overlaysWebView: false,
+      // style: "DEFAULT",
+      // backgroundColor: '#64A30E',
     }
   }
 };

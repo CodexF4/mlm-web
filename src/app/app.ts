@@ -7,11 +7,10 @@ import { UserService } from './users/user.service';
 import { CartService } from './cart/cart.service';
 import { unitPrice, formatPeso } from './products/product.model';
 import { Footer } from './footer/footer';
-import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, Footer, IonContent],
+  imports: [RouterOutlet, RouterLink, Footer],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.css',
