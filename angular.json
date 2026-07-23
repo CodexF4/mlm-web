@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "mlm": {
+    "app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -101,10 +101,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "mlm:build:production"
+              "buildTarget": "app:build:production"
             },
             "development": {
-              "buildTarget": "mlm:build:development"
+              "buildTarget": "app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -115,24 +115,24 @@
         "ionic-cordova-serve": {
           "builder": "@ionic/angular-toolkit:cordova-serve",
           "options": {
-            "cordovaBuildTarget": "mlm:ionic-cordova-build",
-            "devServerTarget": "mlm:serve"
+            "cordovaBuildTarget": "app:ionic-cordova-build",
+            "devServerTarget": "app:serve"
           },
           "configurations": {
             "production": {
-              "cordovaBuildTarget": "mlm:ionic-cordova-build:production",
-              "devServerTarget": "mlm:serve:production"
+              "cordovaBuildTarget": "app:ionic-cordova-build:production",
+              "devServerTarget": "app:serve:production"
             }
           }
         },
         "ionic-cordova-build": {
           "builder": "@ionic/angular-toolkit:cordova-build",
           "options": {
-            "browserTarget": "mlm:build"
+            "browserTarget": "app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "mlm:build:production"
+              "browserTarget": "app:build:production"
             }
           }
         }

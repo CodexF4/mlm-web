@@ -1,6 +1,6 @@
 {
-  "name": "ionic-app",
-  "app_id": "",
+  "name": "mlm",
+  "integrations": {},
   "type": "angular-standalone",
-  "integrations": {}
+  "id": ""
 }
