@@ -1,11 +1,12 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, tap } from 'rxjs';
+import {environment} from '../../environments/environment';
 
 import { LoginRequest, RegisterRequest, User } from './user.model';
 
 /** Same-origin API prefix, proxied to the .NET API in dev (see proxy.config.json). */
-export const API_BASE = '/api';
+export const API_BASE = environment.apiUrl;
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
