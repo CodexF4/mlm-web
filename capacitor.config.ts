@@ -3,7 +3,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.mlm.mobile',
   appName: 'mlm',
-  webDir: 'dist/mobile/browser',
+  webDir: 'dist/app/browser',
   plugins: {
     StatusBar: {
       // overlaysWebView: false,

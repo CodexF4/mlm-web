@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "app": {
+    "web": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -68,10 +68,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "app:build:production"
+              "buildTarget": "web:build:production"
             },
             "development": {
-              "buildTarget": "app:build:development"
+              "buildTarget": "web:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,30 +82,30 @@
         "ionic-cordova-serve": {
           "builder": "@ionic/angular-toolkit:cordova-serve",
           "options": {
-            "cordovaBuildTarget": "app:ionic-cordova-build",
-            "devServerTarget": "app:serve"
+            "cordovaBuildTarget": "web:ionic-cordova-build",
+            "devServerTarget": "web:serve"
           },
           "configurations": {
             "production": {
-              "cordovaBuildTarget": "app:ionic-cordova-build:production",
-              "devServerTarget": "app:serve:production"
+              "cordovaBuildTarget": "web:ionic-cordova-build:production",
+              "devServerTarget": "web:serve:production"
             }
           }
         },
         "ionic-cordova-build": {
           "builder": "@ionic/angular-toolkit:cordova-build",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "web:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "app:build:production"
+              "browserTarget": "web:build:production"
             }
           }
         }
       }
     },
-    "mobile": {
+    "app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -193,10 +193,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "mobile:build:production"
+              "buildTarget": "app:build:production"
             },
             "development": {
-              "buildTarget": "mobile:build:development"
+              "buildTarget": "app:build:development"
             }
           },
           "defaultConfiguration": "development"
