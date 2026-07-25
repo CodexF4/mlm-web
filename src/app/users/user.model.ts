@@ -22,3 +22,9 @@ export interface LoginRequest {
   usernameOrEmail: string;
   password: string;
 }
+
+export interface AuthResponse {
+  token: string;
+  expiresAt: string;
+  user: User;
+}

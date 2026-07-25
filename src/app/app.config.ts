@@ -8,10 +8,11 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
 import { routes } from './app.routes';
+import { tokenInterceptor } from './auth/token.interceptor';
 import {
   provideClientHydration,
   withEventReplay,
@@ -26,8 +27,8 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
-    provideHttpClient(withFetch()),
-    // Restore the session from the httpOnly auth cookie before the app renders (browser only).
+    provideHttpClient(withFetch(), withInterceptors([tokenInterceptor])),
+    // Restore the session from the stored bearer token before the app renders (browser only).
     provideAppInitializer(() => {
       if (!isPlatformBrowser(inject(PLATFORM_ID))) {
         return;
