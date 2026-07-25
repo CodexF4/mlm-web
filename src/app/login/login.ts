@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
@@ -9,7 +9,8 @@ import { GoogleSignin } from '../auth/google-signin';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, RouterLink, GoogleSignin],
-  templateUrl: './login.html'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  templateUrl: './login.html',
 })
 export class Login {
   private readonly userService = inject(UserService);
@@ -20,7 +21,7 @@ export class Login {
 
   protected readonly form = new FormGroup({
     usernameOrEmail: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    password: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+    password: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   protected submit() {
@@ -40,7 +41,7 @@ export class Login {
       error: () => {
         this.error.set('Invalid username/email or password.');
         this.submitting.set(false);
-      }
+      },
     });
   }
 
@@ -49,7 +50,7 @@ export class Login {
     this.userService.loginWithGoogle(idToken, null).subscribe({
       next: () => this.router.navigateByUrl('/'),
       error: (err: HttpErrorResponse) =>
-        this.error.set(typeof err.error === 'string' ? err.error : 'Google sign-in failed.')
+        this.error.set(typeof err.error === 'string' ? err.error : 'Google sign-in failed.'),
     });
   }
 }

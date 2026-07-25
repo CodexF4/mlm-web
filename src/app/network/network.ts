@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 import { ReferralService } from '../referrals/referral.service';
@@ -16,7 +16,8 @@ export interface TreeNode {
 @Component({
   selector: 'app-network',
   imports: [NgTemplateOutlet],
-  templateUrl: './network.html'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  templateUrl: './network.html',
 })
 export class Network {
   private readonly referralService = inject(ReferralService);
@@ -56,8 +57,8 @@ export class Network {
       username,
       level,
       children: (childrenBySponsor.get(id) ?? []).map((child) =>
-        build(child.id, `${child.firstName} ${child.lastName}`, child.username, child.level)
-      )
+        build(child.id, `${child.firstName} ${child.lastName}`, child.username, child.level),
+      ),
     });
 
     return build(me.id, `${me.firstName} ${me.lastName}`, me.username, 0);

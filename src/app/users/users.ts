@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -11,7 +11,8 @@ import { GoogleSignin } from '../auth/google-signin';
 @Component({
   selector: 'app-users',
   imports: [ReactiveFormsModule, RouterLink, GoogleSignin],
-  templateUrl: './users.html'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  templateUrl: './users.html',
 })
 export class Users {
   private readonly userService = inject(UserService);
@@ -29,13 +30,16 @@ export class Users {
   protected readonly form = new FormGroup({
     firstName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     lastName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
     username: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(6)]
+      validators: [Validators.required, Validators.minLength(6)],
     }),
-    referralCode: new FormControl('', { nonNullable: true })
+    referralCode: new FormControl('', { nonNullable: true }),
   });
 
   ngOnInit() {
@@ -59,7 +63,7 @@ export class Users {
 
     this.referralService.lookup(trimmed).subscribe({
       next: (result) => this.sponsorName.set(result.sponsorName),
-      error: () => this.sponsorName.set(null) // unknown code — no sponsor shown
+      error: () => this.sponsorName.set(null), // unknown code — no sponsor shown
     });
   }
 
@@ -80,7 +84,7 @@ export class Users {
         email: value.email,
         username: value.username,
         password: value.password,
-        referralCode: value.referralCode.trim() ? value.referralCode.trim() : null
+        referralCode: value.referralCode.trim() ? value.referralCode.trim() : null,
       })
       .subscribe({
         next: () => {
@@ -92,7 +96,7 @@ export class Users {
         error: (err: HttpErrorResponse) => {
           this.error.set(typeof err.error === 'string' ? err.error : 'Registration failed.');
           this.submitting.set(false);
-        }
+        },
       });
   }
 
@@ -102,7 +106,7 @@ export class Users {
     this.userService.loginWithGoogle(idToken, code ? code : null).subscribe({
       next: () => this.router.navigateByUrl('/'),
       error: (err: HttpErrorResponse) =>
-        this.error.set(typeof err.error === 'string' ? err.error : 'Google sign-in failed.')
+        this.error.set(typeof err.error === 'string' ? err.error : 'Google sign-in failed.'),
     });
   }
 }

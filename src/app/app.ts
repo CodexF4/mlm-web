@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet, RouterLink } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
@@ -12,7 +12,8 @@ import { Footer } from './footer/footer';
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, Footer],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './app.css',
 })
 export class App {
   private readonly userService = inject(UserService);
@@ -29,12 +30,12 @@ export class App {
     this.router.events.pipe(
       filter((e): e is NavigationEnd => e instanceof NavigationEnd),
       map((e) => e.urlAfterRedirects.split('?')[0]),
-      startWith(this.router.url.split('?')[0])
+      startWith(this.router.url.split('?')[0]),
     ),
-    { initialValue: '/' }
+    { initialValue: '/' },
   );
   protected readonly showChrome = computed(
-    () => !['/login', '/register'].includes(this.currentUrl())
+    () => !['/login', '/register'].includes(this.currentUrl()),
   );
 
   // Mobile nav menu toggle.

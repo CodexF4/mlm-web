@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
   imports: [RouterLink],
-  templateUrl: './footer.html'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  templateUrl: './footer.html',
 })
 export class Footer {
   // Some links point to pages that don't exist yet — they land on the
@@ -17,8 +18,8 @@ export class Footer {
         { label: 'How to Buy', path: '/how-to-buy' },
         { label: 'Shipping Info', path: '/shipping' },
         { label: 'Returns & Refunds', path: '/returns' },
-        { label: 'Contact Us', path: '/contact' }
-      ]
+        { label: 'Contact Us', path: '/contact' },
+      ],
     },
     {
       title: 'About Pag-Unlad',
@@ -26,8 +27,8 @@ export class Footer {
         { label: 'About Us', path: '/about' },
         { label: 'Careers', path: '/careers' },
         { label: 'Privacy Policy', path: '/privacy' },
-        { label: 'Terms & Conditions', path: '/terms' }
-      ]
+        { label: 'Terms & Conditions', path: '/terms' },
+      ],
     },
     {
       title: 'Earn With Us',
@@ -36,8 +37,8 @@ export class Footer {
         { label: 'Earn from Referral', path: '/earn' },
         { label: 'Membership Plans', path: '/register' },
         { label: 'Referral Program', path: '/referrals' },
-        { label: 'Seller Center', path: '/seller-center' }
-      ]
+        { label: 'Seller Center', path: '/seller-center' },
+      ],
     },
     {
       title: 'My Account',
@@ -46,8 +47,8 @@ export class Footer {
         { label: 'Login', path: '/login' },
         { label: 'My Network', path: '/network' },
         { label: 'My Cart', path: '/cart' },
-        { label: 'Order History', path: '/orders' }
-      ]
-    }
+        { label: 'Order History', path: '/orders' },
+      ],
+    },
   ];
 }

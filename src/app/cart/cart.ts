@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { CartItem, CartService } from './cart.service';
@@ -7,7 +7,8 @@ import { unitPrice, formatPeso } from '../products/product.model';
 @Component({
   selector: 'app-cart',
   imports: [RouterLink],
-  templateUrl: './cart.html'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  templateUrl: './cart.html',
 })
 export class Cart {
   private readonly cartService = inject(CartService);
