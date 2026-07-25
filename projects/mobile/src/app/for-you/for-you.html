@@ -1,0 +1,36 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>For You</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">For You</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="product-grid">
+    @for (product of products; track product.id) {
+      <div class="product-card">
+        <div class="thumb">
+          <img [src]="product.image" [alt]="product.name" loading="lazy" />
+          @if (product.discount) {
+            <span class="badge">-{{ product.discount }}%</span>
+          }
+        </div>
+        <div class="body">
+          <div class="name">{{ product.name }}</div>
+          <div class="price-row">
+            <span class="price">{{ formatPeso(unitPrice(product)) }}</span>
+            @if (product.discount) {
+              <span class="orig">{{ formatPeso(product.price) }}</span>
+            }
+          </div>
+          <div class="sold">{{ product.sold }} sold</div>
+        </div>
+      </div>
+    }
+  </div>
+</ion-content>

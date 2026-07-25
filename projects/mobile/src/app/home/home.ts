@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonItem } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar],
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonItem],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
